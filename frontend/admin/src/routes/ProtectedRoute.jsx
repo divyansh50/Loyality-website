@@ -4,6 +4,6 @@ import { getlocalState } from "../util/local.helpers";
 export default function ProtectedRoute({ children }) {
     const token=getlocalState('token');
 
-    if (!token) return <Navigate to="/" replace />;
+    if (!token) return <Navigate to="/login" replace />;
     return children;
 }

@@ -20,6 +20,7 @@ import { clearLocalState, setLocalState } from "../../util/local.helpers";
                 state.error = null;
                 state.isAuthenticated = false;
                 clearLocalState('token');
+                clearLocalState('user');
             }
         },
         extraReducers:(builder)=>{
@@ -35,6 +36,7 @@ import { clearLocalState, setLocalState } from "../../util/local.helpers";
                     state.user=action.payload.admin;
                     state.isAuthenticated=true;
                     setLocalState('token',action?.payload?.token);
+                    setLocalState("user",action?.payload?.admin)
                 }
                 else{
                     state.error = "Invalid login credentials";
