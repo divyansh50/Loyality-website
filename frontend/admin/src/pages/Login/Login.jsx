@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { loginAdmin } from "../redux/thunk/auth.thunk";
+import { loginAdmin } from "../../redux/thunk/auth.thunk";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch=useDispatch();
-  const userDetails=useSelector((state)=>state.auth)
+  const navigate=useNavigate();
+  const {isAuthenticated}=useSelector((state)=>state.auth);
   const [inputDetails, setInputDetails] = useState({
     phone: "",
     password: ""
@@ -19,7 +21,11 @@ const Login = () => {
     dispatch(loginAdmin(inputDetails));
   }
 
-
+  useEffect(()=>{
+    if(isAuthenticated){
+      navigate('/dashboard')
+    }
+  },[isAuthenticated])
   return (
     <div className="min-h-screen flex justify-center items-center bg-linear-to-br from-gray-900 to-gray-800">
       <div className="bg-gray-800 border border-gray-700 p-4 rounded-2xl w-96 shadow-lg shadow-black/40">

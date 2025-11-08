@@ -1,7 +1,10 @@
 import { Suspense,lazy } from 'react';
 import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from './pages/Login';
+import Login from './pages/Login/Login';
+import Dashboard from './pages/Dashboard/index';
+import ProtectedRoute from './routes/ProtectedRoute';
+
 function App() {
     return (
         <BrowserRouter>
@@ -9,14 +12,14 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Login />} />
 
-                    {/* <Route
-                    path="/dashboard/*"
+                    <Route
+                    path="/dashboard"
                     element={
-                        <ProtectedRoute fallback={<div>Loading...</div>}>
+                        <ProtectedRoute>
                             <Dashboard />
                         </ProtectedRoute>
                     }
-                /> */}
+                />
 
                     {/* <Route path="*" element={<NotFound />} /> */}
                 </Routes>
