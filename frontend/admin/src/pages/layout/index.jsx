@@ -23,7 +23,7 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       {/* Top bar (optional) */}
-      <header className="sticky top-0 z-10 border-b">
+      <header className="sticky top-0 z-10 border-b border-black">
         <div className="mx-auto max-w-md px-4 py-3">
           <h1 className=" text-2xl font-bold capitalize text-black">Hi,{userData?.name}</h1>
         </div>

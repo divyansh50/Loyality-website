@@ -1,4 +1,4 @@
-import { Suspense,lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './pages/Login/Login';
@@ -7,43 +7,60 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import Layout from './pages/layout';
 import UserPoints from './pages/UserPoints';
 import RedeemItems from './pages/RedeemItems/';
+import { ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
     return (
-        <BrowserRouter>
-            <Suspense fallback={<div>Loading…</div>}>
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route element={<Layout/>}>
-                    <Route
-                    path="/"
-                    element={
-                        <ProtectedRoute>
-                            <Dashboard />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/user-points"
-                    element={
-                        <ProtectedRoute>
-                            <UserPoints />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/redeem"
-                    element={
-                        <ProtectedRoute>
-                            <RedeemItems />
-                        </ProtectedRoute>
-                    }
-                />
-                </Route>
+        <>
+            <ToastContainer
+                position="top-right"              
+                autoClose={5000} 
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}              
+                pauseOnFocusLoss
+                draggable              
+                pauseOnHover  
+                theme="colored"              
+                className="custom-toaster-container"/>
+            <BrowserRouter>
+                <Suspense fallback={<div>Loading…</div>}>
+                    <Routes>
+                        <Route path="/login" element={<Login />} />
+                        <Route element={<Layout />}>
+                            <Route
+                                path="/"
+                                element={
+                                    <ProtectedRoute>
+                                        <Dashboard />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/user-points"
+                                element={
+                                    <ProtectedRoute>
+                                        <UserPoints />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/redeem"
+                                element={
+                                    <ProtectedRoute>
+                                        <RedeemItems />
+                                    </ProtectedRoute>
+                                }
+                            />
+                        </Route>
 
-                    {/* <Route path="*" element={<NotFound />} /> */}
-                </Routes>
-            </Suspense>
-        </BrowserRouter>
+                        {/* <Route path="*" element={<NotFound />} /> */}
+                    </Routes>
+                </Suspense>
+            </BrowserRouter>
+        </>
     )
 }
 
