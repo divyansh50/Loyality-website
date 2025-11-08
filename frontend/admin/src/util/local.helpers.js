@@ -2,7 +2,7 @@ export const setLocalState=(key,data)=>{
 localStorage.setItem(key,JSON.stringify(data));
 }
 
-export const getlocalState=(key)=>{
+export const getLocalState=(key)=>{
     const data=localStorage.getItem(key);
     if(data){
         return JSON.parse(data);
