@@ -1,0 +1,48 @@
+//All commands to run prisma setup
+// npm init -y
+// npm i express cors body-parser bcrypt jsonwebtoken @prisma/client
+// npm i -D prisma nodemon
+// npx prisma init
+
+//To create tables
+// npx prisma migrate dev --name init
+// npx prisma generate
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  directUrl  = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  phoneE164 String   @unique
+  name      String?
+  points    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Admin {
+  id           String    @id @default(cuid())
+  phoneE164    String    @unique
+  name         String?
+  passwordHash String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model RewardItem {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String?
+  costPoints  Int
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
