@@ -24,7 +24,7 @@ export const getUserPoints=createAsyncThunk('admin/userPoints',async (data,{ rej
 
 export const modifyUserPoints = createAsyncThunk(
   "admin/modifyUserPoints",
-  async (data) => {
+  async (data,{ rejectWithValue }) => {
     const token = getLocalState("token");
     const res = await fetch(
       `http://localhost:4000/api/admin/users/${data?.userId}/points`,
@@ -37,7 +37,7 @@ export const modifyUserPoints = createAsyncThunk(
         body: JSON.stringify({ delta: data?.delta }),
       }
     );
-    const result= res.json();
+    const   result= res.json();
       if (!res.ok) {
       openErrorToaster({message:result.error})
       return rejectWithValue(result); // sends to rejected block
