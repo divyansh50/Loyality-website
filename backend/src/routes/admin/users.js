@@ -4,11 +4,11 @@ import  requireAdmin  from "../../mw.js";
 
 const router = Router();
 
-// Admin: POST /api/admin/users/add  { phone, name }
-router.post("/add", requireAdmin, async (req, res, next) => {
+// Admin: POST /api/admin/users/  { phone, name }
+router.post("/", requireAdmin, async (req, res, next) => {
   try {
     const { phone, name } = req.body;
-    if (!phone) return res.status(400).json({ error: "phone required" });
+    if (!phone) return res.status(400).json({ error: "Phone number is required" });
 
     const user = await prisma.user.upsert({
       where: { phoneE164: phone },

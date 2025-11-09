@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from "react-router-dom";
-import { getlocalState } from "../../util/local.helpers";
+import { getLocalState } from "../../util/local.helpers";
 
 const TabButton = ({ to, label, icon }) => (
   <NavLink
@@ -19,7 +19,7 @@ const TabButton = ({ to, label, icon }) => (
 );
 
 export default function Layout() {
-  const userData=getlocalState('user');
+  const userData=getLocalState('user');
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       {/* Top bar (optional) */}

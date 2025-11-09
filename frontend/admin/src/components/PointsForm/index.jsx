@@ -1,20 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { modifyUserPoints } from "../../redux/thunk/userPoints.thunk";
+import { resetPointsState, resetPointsUpdateState } from "../../redux/slices/userPoints.slice";
+import Loader from "../Loader";
 
 const PointsForm = () => {
-    const [points,setPoints]=useState(0);
-
-    const handleSubmit=(e)=>{
-        e.preventDefault();
-        console.log("userPoints are",points)
-    }
+  const { data,pointsUpdate } = useSelector((state) => state.userPoints);
+  const dispatch = useDispatch();
+  const [points, setPoints] = useState(0);
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(modifyUserPoints({ userId: data?.id, delta: points }));
+    dispatch(resetPointsState());
+  }
+  useEffect(() => { dispatch(resetPointsUpdateState()) }, [])
   return (
     <div className="bg-[#F7F8FA] flex justify-center items-center mt-20 text-gray-800">
 
       <div className="bg-white rounded-2xl shadow-sm p-6 w-full max-w-sm border border-gray-100 text-center">
 
         {/* Username Section */}
-        <h2 className="text-lg font-semibold mb-1">Points for Username</h2>
-        <p className="text-3xl font-bold text-blue-600 mb-6">200</p>
+        <h2 className="text-lg font-semibold mb-1">Points for {data?.name}</h2>
+        <p className="text-3xl font-bold text-blue-600 mb-6">{data?.points}</p>
 
         {/* Form */}
         <form className="space-y-5">
@@ -25,7 +33,7 @@ const PointsForm = () => {
               type="number"
               placeholder="Enter points"
               className="px-4 py-2 rounded-xl border border-gray-200 bg-[#FAFAFA] focus:ring-2 focus:ring-blue-300 outline-none transition"
-              onChange={(e)=>{setPoints(e.target.value)}}
+              onChange={(e) => { setPoints(e.target.value) }}
             />
           </div>
 
@@ -34,7 +42,7 @@ const PointsForm = () => {
             className="w-full py-3 rounded-xl font-semibold bg-blue-600 text-white hover:bg-blue-700 transition"
             onClick={handleSubmit}
           >
-            Submit
+            {pointsUpdate.loading?<Loader size={20}/>:"Submit"}
           </button>
 
         </form>

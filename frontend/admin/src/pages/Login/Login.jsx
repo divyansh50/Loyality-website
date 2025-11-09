@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAdmin } from "../../redux/thunk/auth.thunk";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ const Login = () => {
               onClick={handleLogin}
               className="w-full py-3 rounded-xl font-semibold text-white bg-linear-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-md active:scale-95 transition"
             >
-              {loading ? "Loading..." : "Login"}
+              {loading ? <Loader size={20}/> : "Login"}
             </button>
 
           </form>

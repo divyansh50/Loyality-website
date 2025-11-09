@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from 'react-redux';
+import { getUserPoints } from '../../redux/thunk/userPoints.thunk';
+import { resetPointsState, resetPointsUpdateState } from "../../redux/slices/userPoints.slice";
 
 const SearchUserPoints = () => {
+    const dispatch = useDispatch();
     const [userDetails, setUserDetails] = useState({
         phone: "",
         name: ""
@@ -12,10 +16,15 @@ const SearchUserPoints = () => {
         })
     }
 
-    const handleSubmit=(e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("userDetails",userDetails)
+        dispatch(getUserPoints(userDetails));
+        dispatch(resetPointsUpdateState());
     }
+
+    useEffect(() => {
+        dispatch(resetPointsState());
+    }, [])
     return <div>
         <h2 className="text-xl font-semibold mb-4 text-center">Search User Points</h2>
 

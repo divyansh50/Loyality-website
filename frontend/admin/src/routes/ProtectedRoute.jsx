@@ -1,8 +1,8 @@
 import { Navigate } from "react-router-dom";
-import { getlocalState } from "../util/local.helpers";
+import { getLocalState } from "../util/local.helpers";
 
 export default function ProtectedRoute({ children }) {
-    const token=getlocalState('token');
+    const token=getLocalState('token');
 
     if (!token) return <Navigate to="/login" replace />;
     return children;
