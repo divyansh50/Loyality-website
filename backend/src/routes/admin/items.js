@@ -22,7 +22,7 @@ router.post("/add", requireAdmin, async (req, res, next) => {
       return res.status(400).json({ error: "title and integer costPoints required" });
     }
     const item = await prisma.rewardItem.create({
-      data: { title, costPoints, description, imageUrl,isActive: true }
+      data: { title, costPoints, imageUrl:imageUrl||"",isActive: true }
     });
     res.status(201).json(item);
   } catch (e) { next(e); }
@@ -40,7 +40,7 @@ router.patch("/:id", requireAdmin, async (req, res, next) => {
 router.delete("/:id", requireAdmin, async (req, res, next) => {
   try {
     await prisma.rewardItem.delete({ where: { id: req.params.id } });
-    res.status(204).end();
+    res.status(200).json({ success: true });
   } catch (e) { next(e); }
 });
 

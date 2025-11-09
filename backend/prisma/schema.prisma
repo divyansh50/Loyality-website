@@ -39,7 +39,6 @@ model Admin {
 model RewardItem {
   id          String   @id @default(cuid())
   title       String
-  description String?
   imageUrl    String?
   costPoints  Int
   isActive    Boolean  @default(true)
